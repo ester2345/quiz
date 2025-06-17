@@ -1,0 +1,29 @@
+document.getElementById('quiz-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Evita o envio do formulário
+
+    const correctAnswers = {
+        q1: 'Brasília',
+        q2: 'Machado de Assis',
+        q3: 'Júpiter'
+    };
+
+    const resultDiv = document.getElementById('result');
+    resultDiv.innerHTML = ''; // Limpa resultados anteriores
+
+    for (const [question, correctAnswer] of Object.entries(correctAnswers)) {
+        const selectedAnswer = document.querySelector(`input[name="${question}"]:checked`);
+
+        if (selectedAnswer) {
+            const label = selectedAnswer.parentElement;
+            if (selectedAnswer.value === correctAnswer) {
+                label.classList.add('correct');
+                resultDiv.innerHTML += `<p>${question}: Resposta correta!</p>`;
+            } else {
+                label.classList.add('incorrect');
+                resultDiv.innerHTML += `<p>${question}: Resposta errada! A correta é ${correctAnswer}.</p>`;
+            }
+        } else {
+            resultDiv.innerHTML += `<p>${question}: Nenhuma resposta selecionada.</p>`;
+        }
+    }
+});
